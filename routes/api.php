@@ -34,5 +34,5 @@ Route::controller(ContaController::class)->group(function () {
 });
 
 Route::controller(TransacaoController::class)->group(function () {
-    Route::post('transacao', 'store');
+    Route::post('transacao', [TransacaoController::class, 'store'])->name('transacao.store');
 });

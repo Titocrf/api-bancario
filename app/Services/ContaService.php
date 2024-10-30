@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\ContaRepository;
-use Exception;
 
 class ContaService
 {
@@ -29,7 +28,7 @@ class ContaService
         $dados = $this->contaRepository->findByNumeroConta($numeroConta);
 
         if (!$dados) {
-            throw new Exception('Conta não encontrada.');
+            throw new \Exception('Conta não encontrada.', 404);
         }
 
         return $dados;

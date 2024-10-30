@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\DB;
 use App\Models\Transacao;
 use App\Services\ContaService;
+use App\Http\Resources\ContaResource;
 
 class TransacaoService
 {
@@ -39,12 +40,8 @@ class TransacaoService
             $taxa = ($formaPagamento->taxa / 100) * $valorDebito;
             $valorTotal = $valorDebito + $taxa;
 
-            if (!$conta) {
-                throw new \Exception('Conta não encontrada.');
-            }
-
             if ($conta->saldo < $valorTotal) {
-                throw new \Exception('Saldo insuficiente.');
+                throw new \Exception('Saldo insuficiente.', 404);
             }
 
             $conta->saldo -= $valorTotal;
@@ -58,11 +55,10 @@ class TransacaoService
             ]);
 
             DB::commit();
-
-            return $conta;
+            return new ContaResource($conta);
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            return response()->json(['message' => $e->getMessage()], $e->getCode() ?? 500);
         }
     }
 }

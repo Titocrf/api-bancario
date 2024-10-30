@@ -28,6 +28,6 @@ class ContaResource extends JsonResource
      */
     public function toResponse($request)
     {
-        return response()->json($this->toArray($request));
+        return response()->json($this->toArray($request), 201);
     }
 }
