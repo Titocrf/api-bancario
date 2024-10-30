@@ -23,7 +23,5 @@ class TransacaoController extends Controller
     public function store(TransacaoRequest $request)
     {
         return $this->transacaoService->create($request->validated());
-
-        // return response()->json(['message' => 'Avaliação já realizada.'], 422);
     }
 }
