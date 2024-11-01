@@ -23,8 +23,5 @@ WORKDIR /var/www
 # Copiar arquivos para o container
 COPY . .
 
-# Instalar dependências do Laravel (durante a construção)
-RUN composer install
-
 # Configurar PHP-FPM como comando padrão
 CMD ["php-fpm"]
