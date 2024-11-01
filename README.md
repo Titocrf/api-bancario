@@ -16,11 +16,14 @@
 
 <h2>Instalação</h2>
 <ol>
+  <li>Rode o comando para instalar os containers:
+    <pre class="command">docker-compose up -d --build</pre>
+  </li>
   <li>Copie o arquivo <code>.env.example</code> para <code>.env</code>:
     <pre class="command">cp .env.example .env</pre>
   </li>
-  <li>Rode o comando para instalar os containers:
-    <pre class="command">docker-compose up -d --build</pre>
+  <li>Rode para criar a key:
+    <pre class="command">docker exec -it laravel_app php artisan key:generate</pre>
   </li>
   <li>Rode as migrations:
     <pre class="command">docker exec -it laravel_app php artisan migrate --seed</pre>
