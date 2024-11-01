@@ -16,28 +16,29 @@
 
 <h2>Instalação</h2>
 <ol>
-  <li>Rode o comando para instalar os containers:
-    <pre class="command">docker-compose up -d --build</pre>
+  <li>Rode o comando para build:
+    <pre class="command">make build</pre>
   </li>
-  <li>Copie o arquivo <code>.env.example</code> para <code>.env</code>:
-    <pre class="command">cp .env.example .env</pre>
+  <li>Rode o comando para iniciar:
+    <pre class="command">make up</pre>
   </li>
-  <li>Rode para criar a key:
-    <pre class="command">docker exec -it laravel_app php artisan key:generate</pre>
+  <li>Rode o comando para parar:
+    <pre class="command">make stop</pre>
   </li>
-  <li>Rode as migrations:
-    <pre class="command">docker exec -it laravel_app php artisan migrate --seed</pre>
+  <li>Rode o comando para resetar os dados:
+    <pre class="command">make refresh</pre>
+  </li>
+  <li>Comando artisan de exemplo:
+    <pre class="command">make artisan cmd="optimize:clear"</pre>
   </li>
 </ol>
 
 <h3>Teste unitário</h3>
 <p>Para iniciar o teste, execute:</p>
-<pre class="command">docker exec -it laravel_app php artisan teste</pre>
-<p>Lembrando que ao rodar o teste, limpará o banco de dados, sendo necessário rodar novamente:</p>
-<pre class="command">docker exec -it laravel_app php artisan migrate:refresh --seed</pre>
+<pre class="command">make test</pre>
 
 <h2>Licença</h2>
-<p>Este projeto foi feito por Thiago Dionisio, para um teste de emprego.</p>
+<p>Este projeto foi feito por Thiago Dionisio.</p>
 
 </body>
 </html>

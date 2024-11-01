@@ -1,5 +1,6 @@
 # Variáveis
 APP_CONTAINER=app
+LARAVEL_CONTAINER=laravel_app
 POSTGRES_CONTAINER=postgres
 
 # Comandos principais
@@ -9,9 +10,10 @@ POSTGRES_CONTAINER=postgres
 build:
 	docker-compose build
 	docker-compose up -d
-	docker-compose run --rm $(APP_CONTAINER) cp .env.example .env
-	docker-compose run --rm $(APP_CONTAINER) composer install
-	docker-compose run --rm $(APP_CONTAINER) php artisan key:generate
+	docker-compose exec $(APP_CONTAINER) cp .env.example .env
+	docker-compose exec $(APP_CONTAINER) composer install
+	docker-compose exec $(APP_CONTAINER) php artisan key:generate
+	docker-compose exec $(APP_CONTAINER) php artisan migrate --seed
 	docker-compose down
 
 # Subir os containers do Docker
@@ -32,19 +34,24 @@ logs:
 
 # Acessar o bash do container da aplicação
 bash:
-	docker exec -it $(APP_CONTAINER) /bin/bash
+	docker exec -it $(LARAVEL_CONTAINER) /bin/bash
 
 # Executar o Composer no container da aplicação
 composer:
-	docker exec -it $(APP_CONTAINER) composer install
+	docker exec -it $(LARAVEL_CONTAINER) composer install
 
 # Executar comandos Artisan
 artisan:
-	docker exec -it $(APP_CONTAINER) php artisan $(cmd)
+	docker exec -it $(LARAVEL_CONTAINER) php artisan $(cmd)
 
 # Executar testes
 test:
-	docker exec -it $(APP_CONTAINER) ./vendor/bin/phpunit
+	docker exec -it $(LARAVEL_CONTAINER) php artisan test
 
+# Executar migrate
 migrate:
-	docker exec -it $(APP_CONTAINER) php artisan migrate --seed
+	docker exec -it $(LARAVEL_CONTAINER) php artisan migrate --seed
+
+# Executar migrate refresh
+refresh:
+	docker exec -it $(LARAVEL_CONTAINER) php artisan migrate:refresh --seed

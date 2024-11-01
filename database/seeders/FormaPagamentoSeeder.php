@@ -14,17 +14,17 @@ class FormaPagamentoSeeder extends Seeder
      */
     public function run()
     {
-        FormaPagamento::create([
+        FormaPagamento::updateOrInsert([
             'id' => 'P',
             'taxa' => 0.00,
         ]);
 
-        FormaPagamento::create([
+        FormaPagamento::updateOrInsert([
             'id' => 'C',
             'taxa' => 5.00,
         ]);
 
-        FormaPagamento::create([
+        FormaPagamento::updateOrInsert([
             'id' => 'D',
             'taxa' => 3.00,
         ]);
